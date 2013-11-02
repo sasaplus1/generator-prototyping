@@ -11,6 +11,8 @@
     "url": "git://github.com/sasaplus1/generator-prototyping.git"
   },
   "scripts": {
+    "fix": "fixjsstyle --strict --nojsdoc -x ./app/index.js -r ./app -r ./test",
+    "lint": "gjslint --strict --nojsdoc -x ./app/index.js -r ./app -r ./test",
     "test": "mocha"
   },
   "dependencies": {
