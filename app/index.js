@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/*!
+ * generator-prototyping Copyright(c) 2013 sasa+1
+ * https://github.com/sasaplus1/generator-prototyping
+ * Released under the MIT license.
+ */
+
 var path = require('path'),
     util = require('util'),
     yeoman = require('yeoman-generator');
