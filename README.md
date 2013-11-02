@@ -1,5 +1,8 @@
 # generator-prototyping
 
+[![Build Status](https://travis-ci.org/sasaplus1/generator-prototyping.png)](https://travis-ci.org/sasaplus1/generator-prototyping)
+[![Dependency Status](https://gemnasium.com/sasaplus1/generator-prototyping.png)](https://gemnasium.com/sasaplus1/generator-prototyping)
+
 Yeoman generator for client side webapp prototyping
 
 ## Installation
