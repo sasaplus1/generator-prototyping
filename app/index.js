@@ -39,6 +39,9 @@ PrototypingGenerator.prototype.app = function() {
   this.mkdir('coffee');
   this.copy('coffee/index.coffee', 'coffee/index.coffee');
 
+  this.mkdir('output');
+  this.mkdir('public');
+
   this.copy('_package.json', 'package.json');
   this.copy('_bower.json', 'bower.json');
 
