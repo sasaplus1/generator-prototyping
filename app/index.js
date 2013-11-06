@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/*!
+ * generator-prototyping Copyright(c) 2013 sasa+1
+ * https://github.com/sasaplus1/generator-prototyping
+ * Released under the MIT license.
+ */
+
 var path = require('path'),
     util = require('util'),
     yeoman = require('yeoman-generator');
@@ -26,13 +32,15 @@ PrototypingGenerator.prototype.app = function() {
 
   this.mkdir('jade');
   this.copy('jade/index.jade', 'jade/index.jade');
-  this.copy('jade/_livereload.jade', 'jade/_livereload.jade');
 
   this.mkdir('stylus');
   this.copy('stylus/index.stylus', 'stylus/index.stylus');
 
   this.mkdir('coffee');
   this.copy('coffee/index.coffee', 'coffee/index.coffee');
+
+  this.mkdir('output');
+  this.mkdir('public');
 
   this.copy('_package.json', 'package.json');
   this.copy('_bower.json', 'bower.json');
