@@ -36,7 +36,6 @@ describe('prototyping generator', function() {
         'Gruntfile.coffee',
         'js/index.js',
         'jade/index.jade',
-        'jade/_livereload.jade',
         'stylus/index.stylus',
         'coffee/index.coffee'
       ]);

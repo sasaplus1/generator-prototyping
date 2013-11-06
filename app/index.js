@@ -32,7 +32,6 @@ PrototypingGenerator.prototype.app = function() {
 
   this.mkdir('jade');
   this.copy('jade/index.jade', 'jade/index.jade');
-  this.copy('jade/_livereload.jade', 'jade/_livereload.jade');
 
   this.mkdir('stylus');
   this.copy('stylus/index.stylus', 'stylus/index.stylus');
