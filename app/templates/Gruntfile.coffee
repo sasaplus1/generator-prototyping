@@ -52,6 +52,8 @@ module.exports = (grunt) ->
           ext: '.html'
           src: 'jade/!(_)*.jade'
         ]
+      options:
+        pretty: true
     stylus:
       compile:
         files: [
@@ -60,9 +62,9 @@ module.exports = (grunt) ->
           ext: '.css'
           src: ['stylus/!(_)*.styl', 'stylus/!(_)*.stylus']
         ]
-    coffee:
       options:
-        bare: true
+        compress: false
+    coffee:
       compile:
         files: [
           dest: 'output/'
@@ -70,6 +72,9 @@ module.exports = (grunt) ->
           ext: '.js'
           src: 'coffee/*.coffee'
         ]
+      options:
+        bare: true
+        sourceMap: true
     esteWatch:
       options:
         dirs: ['js/**', 'jade/**', 'stylus/**', 'coffee/**']
