@@ -20,10 +20,10 @@ $ mkdir prototyping && cd $_
 $ yo prototyping
 ```
 
-### run start script
+### run
 
 ```sh
-$ npm start
+$ grunt
 ```
 
 1. start server at `localhost:3000`

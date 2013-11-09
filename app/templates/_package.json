@@ -1,8 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "bower install",
-    "start": "NODE_ENV=development grunt"
+    "postinstall": "bower install"
   },
   "devDependencies": {
     "bower": "~1.2",
