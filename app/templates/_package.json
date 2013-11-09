@@ -1,8 +1,5 @@
 {
   "private": true,
-  "scripts": {
-    "postinstall": "bower install"
-  },
   "devDependencies": {
     "bower": "~1.2",
     "grunt": "~0.4",
