@@ -5,7 +5,7 @@ module.exports = (grunt) ->
       server:
         options:
           base: 'public/'
-          livereload: true
+          livereload: 35729
           port: 3000
     copy:
       main:
