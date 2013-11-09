@@ -41,6 +41,7 @@ PrototypingGenerator.prototype.app = function() {
 
   this.mkdir('output');
   this.mkdir('public');
+  this.mkdir('public/lib');
 
   this.copy('_package.json', 'package.json');
   this.copy('_bower.json', 'bower.json');

@@ -1,6 +1,11 @@
 module.exports = (grunt) ->
 
   grunt.initConfig
+    bower:
+      install:
+        options:
+          layout: 'byComponent'
+          targetDir: 'public/lib/'
     connect:
       server:
         options:
@@ -113,6 +118,7 @@ module.exports = (grunt) ->
         ]
         ['coffee', 'copy']
 
+  grunt.loadNpmTasks 'grunt-bower-task'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-copy'
