@@ -5,7 +5,6 @@
   },
   "devDependencies": {
     "bower": "~1.2",
-    "connect-livereload": "~0.3",
     "grunt": "~0.4",
     "grunt-cli": "~0.1",
     "grunt-contrib-coffee": "~0.7",
