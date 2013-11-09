@@ -150,5 +150,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-este-watch'
 
   grunt.registerTask 'default', ['connect', 'jade', 'stylus', 'coffee', 'copy', 'esteWatch']
+  grunt.registerTask 'install', ['bower:install']
 
   return
