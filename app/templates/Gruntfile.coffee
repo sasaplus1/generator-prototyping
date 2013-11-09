@@ -70,7 +70,7 @@ module.exports = (grunt) ->
           dest: 'output/'
           expand: true
           ext: '.js'
-          src: 'coffee/*.coffee'
+          src: ['coffee/*.coffee', 'coffee/*.litcoffee', 'coffee/*.coffee.md']
         ]
       options:
         bare: true
