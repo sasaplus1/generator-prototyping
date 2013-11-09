@@ -1,7 +1,6 @@
 {
   "private": true,
   "devDependencies": {
-    "bower": "~1.2",
     "grunt": "~0.4",
     "grunt-bower-task": "~0.3",
     "grunt-contrib-coffee": "~0.7",
