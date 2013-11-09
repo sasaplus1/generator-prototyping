@@ -15,11 +15,34 @@ module.exports = (grunt) ->
     copy:
       main:
         files: [
-          dest: 'public/'
-          expand: true
-          filter: 'isFile'
-          flatten: true
-          src: ['js/*', 'output/jade/*', 'output/stylus/*', 'output/coffee/*']
+          {
+            dest: 'public/js/'
+            expand: true
+            filter: 'isFile'
+            flatten: true
+            src: 'js/*'
+          }
+          {
+            dest: 'public/'
+            expand: true
+            filter: 'isFile'
+            flatten: true
+            src: 'output/jade/*'
+          }
+          {
+            dest: 'public/css/'
+            expand: true
+            filter: 'isFile'
+            flatten: true
+            src: 'output/stylus/*'
+          }
+          {
+            dest: 'public/coffee/'
+            expand: true
+            filter: 'isFile'
+            flatten: true
+            src: 'output/coffee/*'
+          }
         ]
     jade:
       compile:
@@ -56,7 +79,7 @@ module.exports = (grunt) ->
           port: 35729
       js: (filepath) ->
         grunt.config 'copy.main.files', [
-          dest: 'public/'
+          dest: 'public/js/'
           expand: true
           filter: 'isFile'
           flatten: true
@@ -90,7 +113,7 @@ module.exports = (grunt) ->
           src: filepath
         ]
         grunt.config 'copy.main.files', [
-          dest: 'public/'
+          dest: 'public/css/'
           expand: true
           filter: 'isFile'
           flatten: true
@@ -108,7 +131,7 @@ module.exports = (grunt) ->
           src: filepath
         ]
         grunt.config 'copy.main.files', [
-          dest: 'public/'
+          dest: 'public/coffee/'
           expand: true
           filter: 'isFile'
           flatten: true

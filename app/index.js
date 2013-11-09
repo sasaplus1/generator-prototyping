@@ -41,6 +41,9 @@ PrototypingGenerator.prototype.app = function() {
 
   this.mkdir('output');
   this.mkdir('public');
+  this.mkdir('public/css');
+  this.mkdir('public/js');
+  this.mkdir('public/coffee');
   this.mkdir('public/lib');
 
   this.copy('_package.json', 'package.json');
