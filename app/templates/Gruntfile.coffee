@@ -43,6 +43,15 @@ module.exports = (grunt) ->
         ]
       options:
         compress: false
+    less:
+      compile:
+        files: [
+          dest: 'public/css/'
+          expand: true
+          ext: '.css'
+          flatten: true
+          src: 'less/!(_)*.less'
+        ]
     coffee:
       compile:
         files: [
@@ -57,10 +66,10 @@ module.exports = (grunt) ->
         sourceMap: true
     esteWatch:
       options:
-        dirs: ['js/**', 'jade/**', 'stylus/**', 'coffee/**']
+        dirs: ['js/**', 'jade/**', 'stylus/**', 'less/**', 'coffee/**']
         livereload:
           enabled: true
-          extensions: ['js', 'jade', 'styl', 'stylus', 'coffee']
+          extensions: ['js', 'jade', 'styl', 'stylus', 'less', 'coffee']
           port: 35729
       js: (filepath) ->
         conf = grunt.config('copy.main.files')[0]
@@ -80,6 +89,12 @@ module.exports = (grunt) ->
         conf.src = filepath
         grunt.config 'stylus.compile.files', [conf]
         'stylus'
+      less: (filepath) ->
+        return if /_[^\/]*\.less$/.test filepath
+        conf = grunt.config('less.compile.files')[0]
+        conf.src = filepath
+        grunt.config 'less.compile.files', [conf]
+        'less'
       coffee: (filepath) ->
         conf = grunt.config('coffee.compile.files')[0]
         conf.src = filepath
@@ -91,10 +106,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-jade'
+  grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-este-watch'
 
-  grunt.registerTask 'default', ['connect', 'jade', 'stylus', 'coffee', 'copy', 'esteWatch']
+  grunt.registerTask 'default', ['connect', 'jade', 'stylus', 'less', 'coffee', 'copy', 'esteWatch']
   grunt.registerTask 'install', ['bower:install']
 
   return

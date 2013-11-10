@@ -27,26 +27,21 @@ function PrototypingGenerator(args, options, config) {
 }
 
 PrototypingGenerator.prototype.app = function() {
-  this.mkdir('js');
-  this.copy('js/index.js', 'js/index.js');
-
-  this.mkdir('jade');
-  this.copy('jade/index.jade', 'jade/index.jade');
-
-  this.mkdir('stylus');
-  this.copy('stylus/index.stylus', 'stylus/index.stylus');
-
   this.mkdir('coffee');
-  this.copy('coffee/index.coffee', 'coffee/index.coffee');
+  this.mkdir('jade');
+  this.mkdir('js');
+  this.mkdir('less');
+  this.mkdir('stylus');
+
+  this.copy('jade/index.jade', 'jade/index.jade');
 
   this.mkdir('public');
   this.mkdir('public/css');
   this.mkdir('public/js');
-  this.mkdir('public/coffee');
   this.mkdir('public/lib');
 
-  this.copy('_package.json', 'package.json');
   this.copy('_bower.json', 'bower.json');
+  this.copy('_package.json', 'package.json');
 
   this.copy('Gruntfile.coffee', 'Gruntfile.coffee');
 };
