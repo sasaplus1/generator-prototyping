@@ -39,7 +39,6 @@ PrototypingGenerator.prototype.app = function() {
   this.mkdir('coffee');
   this.copy('coffee/index.coffee', 'coffee/index.coffee');
 
-  this.mkdir('output');
   this.mkdir('public');
   this.mkdir('public/css');
   this.mkdir('public/js');
