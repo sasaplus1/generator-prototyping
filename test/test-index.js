@@ -34,10 +34,7 @@ describe('prototyping generator', function() {
         'package.json',
         'bower.json',
         'Gruntfile.coffee',
-        'js/index.js',
-        'jade/index.jade',
-        'stylus/index.stylus',
-        'coffee/index.coffee'
+        'jade/index.jade'
       ]);
       done();
     });

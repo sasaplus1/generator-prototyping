@@ -20,17 +20,25 @@ $ mkdir prototyping && cd $_
 $ yo prototyping
 ```
 
-### run start script
+### run
 
 ```sh
-$ npm start
+$ grunt
 ```
 
 1. start server at `localhost:3000`
-1. compile Jade, Stylus and CoffeeScript
-1. concatenate compiled CoffeeScript(`index.coffee.js`) and JavaScript(`index.js`)
-1. start watch for file and start livereload
-1. recompile file each time if updated file
+1. compile Jade, Stylus, Less and CoffeeScript
+1. start watch for files, start livereload
+  1. recompile for file if file updated
+  1. reload browser with auto if file updated
+
+### install libraries
+
+```sh
+$ grunt install
+```
+
+execute `bower install` and put libraries to `public/lib/`.
 
 ## License
 
