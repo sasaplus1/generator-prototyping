@@ -55,7 +55,7 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files: [
-          dest: 'public/coffee/'
+          dest: 'public/js/'
           expand: true
           ext: '.js'
           flatten: true
