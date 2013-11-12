@@ -28,9 +28,9 @@ $ grunt
 
 1. start server at `localhost:3000`
 1. compile Jade, Stylus, Less and CoffeeScript
-1. start watch for files, start livereload
-  1. recompile for file if file updated
-  1. reload browser with auto if file updated
+1. start watching for files, and start livereload
+  1. recompile for file when file updated
+  1. reload browser with auto when file updated
 
 ### install libraries
 
@@ -38,7 +38,7 @@ $ grunt
 $ grunt install
 ```
 
-execute `bower install` and put libraries to `public/lib/`.
+download libraries using bower, and put to `public/lib/`.
 
 ## License
 
