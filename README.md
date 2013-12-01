@@ -20,25 +20,33 @@ $ mkdir prototyping && cd $_
 $ yo prototyping
 ```
 
-### run
+## grunt aliases
+
+### develop
 
 ```sh
-$ grunt
+$ grunt develop
 ```
 
-1. start server at `localhost:3000`
-1. compile Jade, Stylus, Less and CoffeeScript
-1. start watching for files, and start livereload
-  1. recompile for file when file updated
-  1. reload browser with auto when file updated
+1. start server at `localhost:8000`
+1. start watch files and start livereload
 
-### install libraries
+### install
 
 ```sh
 $ grunt install
 ```
 
 download libraries using bower, and put to `public/lib/`.
+
+### rebuild
+
+```sh
+$ grunt rebuild
+```
+
+1. clean `public/` directory
+1. compile Jade, Stylus, Less and CoffeeScript
 
 ## License
 
