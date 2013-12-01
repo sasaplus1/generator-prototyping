@@ -13,8 +13,6 @@ $ npm install -g yo generator-prototyping
 
 ## Usage
 
-### scaffolding
-
 ```sh
 $ mkdir prototyping && cd $_
 $ yo prototyping
