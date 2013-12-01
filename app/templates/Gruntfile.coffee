@@ -1,87 +1,124 @@
 module.exports = (grunt) ->
 
   grunt.initConfig
+
     bower:
       install:
         options:
-          layout: 'byComponent'
+          layout: 'byType'
           targetDir: 'public/lib/'
-    connect:
-      server:
-        options:
-          base: 'public/'
-          livereload: 35729
-          port: 3000
-    copy:
+
+    clean:
       main:
         files: [
-          dest: 'public/js/'
-          expand: true
-          filter: 'isFile'
-          flatten: true
-          src: 'js/*'
+          src: 'public/**/*'
         ]
-    jade:
-      compile:
-        files: [
-          dest: 'public/'
-          expand: true
-          ext: '.html'
-          flatten: true
-          src: 'jade/!(_)*.jade'
-        ]
-      options:
-        pretty: true
-    stylus:
-      compile:
-        files: [
-          dest: 'public/css/'
-          expand: true
-          ext: '.css'
-          flatten: true
-          src: 'stylus/!(_)*.{styl,stylus}'
-        ]
-      options:
-        compress: false
-    less:
-      compile:
-        files: [
-          dest: 'public/css/'
-          expand: true
-          ext: '.css'
-          flatten: true
-          src: 'less/!(_)*.less'
-        ]
+
     coffee:
       compile:
         files: [
           dest: 'public/js/'
           expand: true
           ext: '.js'
-          flatten: true
-          src: 'coffee/*.coffee'
+          rename: (dest, matchSrcPath, options) ->
+            require('path').join dest, matchSrcPath.replace 'public/coffee/', ''
+          src: 'public/coffee/**/*.coffee'
         ]
       options:
         bare: true
         sourceMap: true
-    esteWatch:
+
+    connect:
+      server:
+        options:
+          base: 'public/'
+          livereload: 35729
+
+    copy:
+      coffee:
+        files: [
+          dest: 'public/'
+          expand: true
+          src: 'coffee/**/*.coffee'
+        ]
+      js:
+        files: [
+          dest: 'public/'
+          expand: true
+          src: 'js/**/*.js'
+        ]
+
+    jade:
+      compile:
+        files: [
+          dest: 'public/'
+          expand: true
+          ext: '.html'
+          rename: (dest, matchSrcPath, options) ->
+            require('path').join dest, matchSrcPath.replace 'jade/', ''
+          src: 'jade/!(_)*.jade'
+        ]
       options:
-        dirs: ['js/**', 'jade/**', 'stylus/**', 'less/**', 'coffee/**']
-        livereload:
-          enabled: true
-          extensions: ['js', 'jade', 'styl', 'stylus', 'less', 'coffee']
-          port: 35729
-      js: (filepath) ->
-        conf = grunt.config('copy.main.files')[0]
+        pretty: true
+
+    less:
+      compile:
+        files: [
+          dest: 'public/css/'
+          expand: true
+          ext: '.css'
+          rename: (dest, matchSrcPath, options) ->
+            require('path').join dest, matchSrcPath.replace 'less/', ''
+          src: 'less/**/!(_)*.less'
+        ]
+
+    stylus:
+      compile:
+        files: [
+          dest: 'public/css/'
+          expand: true
+          ext: '.css'
+          rename: (dest, matchSrcPath, options) ->
+            require('path').join dest, matchSrcPath.replace 'stylus/', ''
+          src: 'stylus/!(_)*.{styl,stylus}'
+        ]
+      options:
+        compress: false
+
+    esteWatch:
+      coffee: (filepath) ->
+        # copy to public dir
+        conf = grunt.config('copy.coffee.files')[0]
         conf.src = filepath
-        grunt.config 'copy.main.files', [conf]
-        'copy'
+        grunt.config 'copy.coffee.files', [conf]
+        # compile copied file
+        conf = grunt.config('coffee.compile.files')[0]
+        conf.src = filepath.replace 'coffee/', 'public/coffee/'
+        grunt.config 'coffee.compile.files', [conf]
+        ['copy:coffee', 'coffee']
       jade: (filepath) ->
         return if /_[^\/]*\.jade$/.test filepath
         conf = grunt.config('jade.compile.files')[0]
         conf.src = filepath
         grunt.config 'jade.compile.files', [conf]
         'jade'
+      js: (filepath) ->
+        conf = grunt.config('copy.js.files')[0]
+        conf.src = filepath
+        grunt.config 'copy.js.files', [conf]
+        'copy:js'
+      less: (filepath) ->
+        return if /_[^\/]*\.less$/.test filepath
+        conf = grunt.config('less.compile.files')[0]
+        conf.src = filepath
+        grunt.config 'less.compile.files', [conf]
+        'less'
+      options:
+        dirs: ['coffee/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
+        livereload:
+          enabled: true
+          extensions: ['coffee', 'jade', 'js', 'less', 'styl', 'stylus']
+          port: 35729
       styl: '<%= esteWatch.stylus %>'
       stylus: (filepath) ->
         return if /_[^\/]*\.styl(?:us)?$/.test filepath
@@ -89,19 +126,9 @@ module.exports = (grunt) ->
         conf.src = filepath
         grunt.config 'stylus.compile.files', [conf]
         'stylus'
-      less: (filepath) ->
-        return if /_[^\/]*\.less$/.test filepath
-        conf = grunt.config('less.compile.files')[0]
-        conf.src = filepath
-        grunt.config 'less.compile.files', [conf]
-        'less'
-      coffee: (filepath) ->
-        conf = grunt.config('coffee.compile.files')[0]
-        conf.src = filepath
-        grunt.config 'coffee.compile.files', [conf]
-        'coffee'
 
   grunt.loadNpmTasks 'grunt-bower-task'
+  grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-copy'
@@ -110,7 +137,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-este-watch'
 
-  grunt.registerTask 'default', ['connect', 'jade', 'stylus', 'less', 'coffee', 'copy', 'esteWatch']
-  grunt.registerTask 'install', ['bower:install']
+  grunt.registerTask 'develop', ['connect', 'esteWatch']
+  grunt.registerTask 'install', ['bower']
+  grunt.registerTask 'rebuild', ['clean', 'copy', 'jade', 'stylus', 'less', 'coffee']
 
   return

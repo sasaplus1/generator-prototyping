@@ -1,3 +1,8 @@
+# 0.4.0 / 2013-12-01
+
+  - appended grunt alise
+  - fixed SoruceMap support for CoffeeScript
+
 # 0.3.0 / 2013-11-10
 
   - appended Less support

@@ -1,6 +1,6 @@
 {
   "name": "generator-prototyping",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "description": "Yeoman generator for client side webapp prototyping",
   "main": "app/index.js",
@@ -16,7 +16,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "0.13.4"
+    "yeoman-generator": "0.14.0"
   },
   "devDependencies": {
     "mocha": "~1.13",
