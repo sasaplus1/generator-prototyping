@@ -1,5 +1,7 @@
 module.exports = (grunt) ->
 
+  path = require 'path'
+
   grunt.initConfig
 
     bower:
@@ -21,8 +23,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.js'
           rename: (dest, matchSrcPath, options) ->
-            require('path').join dest, matchSrcPath.replace 'public/coffee/', ''
           src: 'public/coffee/**/*.coffee'
+            path.join dest, matchSrcPath.replace 'coffee/', ''
         ]
       options:
         bare: true
@@ -55,8 +57,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.html'
           rename: (dest, matchSrcPath, options) ->
-            require('path').join dest, matchSrcPath.replace 'jade/', ''
           src: 'jade/!(_)*.jade'
+            path.join dest, matchSrcPath.replace 'jade/', ''
         ]
       options:
         pretty: true
@@ -68,7 +70,7 @@ module.exports = (grunt) ->
           expand: true
           ext: '.css'
           rename: (dest, matchSrcPath, options) ->
-            require('path').join dest, matchSrcPath.replace 'less/', ''
+            path.join dest, matchSrcPath.replace 'less/', ''
           src: 'less/**/!(_)*.less'
         ]
 
@@ -79,8 +81,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.css'
           rename: (dest, matchSrcPath, options) ->
-            require('path').join dest, matchSrcPath.replace 'stylus/', ''
           src: 'stylus/!(_)*.{styl,stylus}'
+            path.join dest, matchSrcPath.replace 'stylus/', ''
         ]
       options:
         compress: false
