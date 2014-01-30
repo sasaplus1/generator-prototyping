@@ -13,14 +13,22 @@ $ npm install -g yo generator-prototyping
 
 ## Usage
 
-### scaffolding
-
 ```sh
 $ mkdir prototyping && cd $_
 $ yo prototyping
 ```
 
 ## grunt aliases
+
+### compile
+
+```sh
+$ grunt compile
+```
+
+1. remove files and directories in `public/`, without `public/lib/`
+1. copy to `public/` from `assets/`
+1. compile files for Jade, Stylue, Less and CoffeeScript
 
 ### develop
 
@@ -29,7 +37,16 @@ $ grunt develop
 ```
 
 1. start server at `localhost:8000`
-1. start watch files and start livereload
+1. start watch to files and start livereload
+
+watch to files below.
+
+- `jade/**/*.jade`
+- `stylus/**/*.styl`
+- `less/**/*.less`
+- `js/**/*.js`
+- `coffee/**/*.coffee`
+- `assets/**/*`
 
 ### install
 
@@ -45,8 +62,7 @@ download libraries using bower, and put to `public/lib/`.
 $ grunt rebuild
 ```
 
-1. clean `public/` directory
-1. compile Jade, Stylus, Less and CoffeeScript
+it similar to `compile` alias. but clean `public/`, and install libraries with bower.
 
 ## License
 

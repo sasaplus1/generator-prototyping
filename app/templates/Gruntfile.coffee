@@ -1,5 +1,7 @@
 module.exports = (grunt) ->
 
+  path = require 'path'
+
   grunt.initConfig
 
     bower:
@@ -9,10 +11,19 @@ module.exports = (grunt) ->
           targetDir: 'public/lib/'
 
     clean:
+      all:
+        files:
+          src: [
+            'public/**/*'
+            'public/**/.*'
+          ]
       main:
-        files: [
-          src: 'public/**/*'
-        ]
+        files:
+          src: [
+            'public/**/*'
+            'public/**/.*'
+            '!public/lib/**'
+          ]
 
     coffee:
       compile:
@@ -21,8 +32,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.js'
           rename: (dest, matchSrcPath, options) ->
-            require('path').join dest, matchSrcPath.replace 'public/coffee/', ''
-          src: 'public/coffee/**/*.coffee'
+            path.join dest, matchSrcPath.replace 'coffee/', ''
+          src: 'coffee/**/*.coffee'
         ]
       options:
         bare: true
@@ -35,6 +46,14 @@ module.exports = (grunt) ->
           livereload: 35729
 
     copy:
+      assets:
+        files: [
+          dest: 'public/'
+          src: [
+            'assets/**/*'
+            'assets/**/.*'
+          ]
+        ]
       coffee:
         files: [
           dest: 'public/'
@@ -55,8 +74,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.html'
           rename: (dest, matchSrcPath, options) ->
-            require('path').join dest, matchSrcPath.replace 'jade/', ''
-          src: 'jade/!(_)*.jade'
+            path.join dest, matchSrcPath.replace 'jade/', ''
+          src: 'jade/**/!(_)*.jade'
         ]
       options:
         pretty: true
@@ -68,7 +87,7 @@ module.exports = (grunt) ->
           expand: true
           ext: '.css'
           rename: (dest, matchSrcPath, options) ->
-            require('path').join dest, matchSrcPath.replace 'less/', ''
+            path.join dest, matchSrcPath.replace 'less/', ''
           src: 'less/**/!(_)*.less'
         ]
 
@@ -79,8 +98,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.css'
           rename: (dest, matchSrcPath, options) ->
-            require('path').join dest, matchSrcPath.replace 'stylus/', ''
-          src: 'stylus/!(_)*.{styl,stylus}'
+            path.join dest, matchSrcPath.replace 'stylus/', ''
+          src: 'stylus/**/!(_)*.styl'
         ]
       options:
         compress: false
@@ -93,9 +112,14 @@ module.exports = (grunt) ->
         grunt.config 'copy.coffee.files', [conf]
         # compile copied file
         conf = grunt.config('coffee.compile.files')[0]
-        conf.src = filepath.replace 'coffee/', 'public/coffee/'
+        conf.src = filepath
         grunt.config 'coffee.compile.files', [conf]
-        ['copy:coffee', 'coffee']
+        # replace sourceMap path
+        conf = grunt.config('string-replace.dist.files')[0]
+        conf.src = filepath.replace /coffee\/(.*)\.coffee$/, 'public/js/$1.js'
+        grunt.config 'string-replace.dist.files', [conf]
+        grunt.log.writeln conf.src
+        ['copy:coffee', 'coffee', 'string-replace']
       jade: (filepath) ->
         return if /_[^\/]*\.jade$/.test filepath
         conf = grunt.config('jade.compile.files')[0]
@@ -113,19 +137,36 @@ module.exports = (grunt) ->
         conf.src = filepath
         grunt.config 'less.compile.files', [conf]
         'less'
-      options:
-        dirs: ['coffee/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
-        livereload:
-          enabled: true
-          extensions: ['coffee', 'jade', 'js', 'less', 'styl', 'stylus']
-          port: 35729
-      styl: '<%= esteWatch.stylus %>'
-      stylus: (filepath) ->
-        return if /_[^\/]*\.styl(?:us)?$/.test filepath
+      styl: (filepath) ->
+        return if /_[^\/]*\.styl$/.test filepath
         conf = grunt.config('stylus.compile.files')[0]
         conf.src = filepath
         grunt.config 'stylus.compile.files', [conf]
         'stylus'
+      '*': (filepath) ->
+        return unless /^assets\//.test filepath
+        conf = grunt.config('copy.assets.files')[0]
+        conf.src = filepath
+        grunt.config 'copy.assets.files', [conf]
+        'copy:assets'
+      options:
+        dirs: ['assets/**', 'coffee/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
+        livereload:
+          enabled: true
+          extensions: ['coffee', 'jade', 'js', 'less', 'styl']
+          port: 35729
+
+    'string-replace':
+      dist:
+        files: [
+          dest: 'public/js/'
+          src: 'public/js/**/*.js'
+        ]
+        options:
+          replacements: [
+            pattern: /\/\/# sourceMappingURL=.*\//
+            replacement: '//# sourceMappingURL=./'
+          ]
 
   grunt.loadNpmTasks 'grunt-bower-task'
   grunt.loadNpmTasks 'grunt-contrib-clean'
@@ -136,9 +177,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-este-watch'
+  grunt.loadNpmTasks 'grunt-string-replace'
 
+  grunt.registerTask 'compile', ['clean:main', 'copy', 'jade', 'stylus', 'less', 'coffee', 'string-replace']
   grunt.registerTask 'develop', ['connect', 'esteWatch']
   grunt.registerTask 'install', ['bower']
-  grunt.registerTask 'rebuild', ['clean', 'copy', 'jade', 'stylus', 'less', 'coffee']
+  grunt.registerTask 'rebuild', ['clean:all', 'bower', 'copy', 'jade', 'stylus', 'less', 'coffee', 'string-replace']
 
   return

@@ -27,18 +27,13 @@ function PrototypingGenerator(args, options, config) {
 }
 
 PrototypingGenerator.prototype.app = function() {
+  this.mkdir('assets');
   this.mkdir('coffee');
   this.mkdir('jade');
   this.mkdir('js');
   this.mkdir('less');
   this.mkdir('stylus');
-
-  this.copy('jade/index.jade', 'jade/index.jade');
-
   this.mkdir('public');
-  this.mkdir('public/css');
-  this.mkdir('public/js');
-  this.mkdir('public/lib');
 
   this.copy('_bower.json', 'bower.json');
   this.copy('_package.json', 'package.json');
