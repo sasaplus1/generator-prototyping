@@ -27,6 +27,7 @@ function PrototypingGenerator(args, options, config) {
 }
 
 PrototypingGenerator.prototype.app = function() {
+  this.mkdir('assets');
   this.mkdir('coffee');
   this.mkdir('jade');
   this.mkdir('js');

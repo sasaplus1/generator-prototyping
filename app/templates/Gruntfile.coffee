@@ -37,6 +37,14 @@ module.exports = (grunt) ->
           livereload: 35729
 
     copy:
+      assets:
+        files: [
+          dest: 'public/'
+          src: [
+            'assets/**/*'
+            'assets/**/.*'
+          ]
+        ]
       coffee:
         files: [
           dest: 'public/'
@@ -121,8 +129,14 @@ module.exports = (grunt) ->
         conf.src = filepath
         grunt.config 'stylus.compile.files', [conf]
         'stylus'
+      '*': (filepath) ->
+        return unless /^assets\//.test filepath
+        conf = grunt.config('copy.assets.files')[0]
+        conf.src = filepath
+        grunt.config 'copy.assets.files', [conf]
+        'copy:assets'
       options:
-        dirs: ['coffee/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
+        dirs: ['assets/**', 'coffee/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
         livereload:
           enabled: true
           extensions: ['coffee', 'jade', 'js', 'less', 'styl']
