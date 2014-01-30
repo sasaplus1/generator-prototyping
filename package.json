@@ -1,6 +1,6 @@
 {
   "name": "generator-prototyping",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "description": "Yeoman generator for client side webapp prototyping",
   "main": "app/index.js",
