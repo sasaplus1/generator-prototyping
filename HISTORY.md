@@ -1,3 +1,8 @@
+# 0.5.0 / 2014-01-30
+
+  - added assets/
+  - fixed SourceMapURL
+
 # 0.4.0 / 2013-12-01
 
   - appended grunt alise
