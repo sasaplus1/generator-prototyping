@@ -11,10 +11,19 @@ module.exports = (grunt) ->
           targetDir: 'public/lib/'
 
     clean:
+      all:
+        files:
+          src: [
+            'public/**/*'
+            'public/**/.*'
+          ]
       main:
-        files: [
-          src: 'public/**/*'
-        ]
+        files:
+          src: [
+            'public/**/*'
+            'public/**/.*'
+            '!public/lib/**'
+          ]
 
     coffee:
       compile:
@@ -152,8 +161,9 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-este-watch'
 
+  grunt.registerTask 'compile', ['clean:main', 'copy', 'jade', 'stylus', 'less', 'coffee']
   grunt.registerTask 'develop', ['connect', 'esteWatch']
   grunt.registerTask 'install', ['bower']
-  grunt.registerTask 'rebuild', ['clean', 'copy', 'jade', 'stylus', 'less', 'coffee']
+  grunt.registerTask 'rebuild', ['clean:all', 'bower', 'copy', 'jade', 'stylus', 'less', 'coffee']
 
   return
