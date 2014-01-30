@@ -115,19 +115,18 @@ module.exports = (grunt) ->
         conf.src = filepath
         grunt.config 'less.compile.files', [conf]
         'less'
-      options:
-        dirs: ['coffee/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
-        livereload:
-          enabled: true
-          extensions: ['coffee', 'jade', 'js', 'less', 'styl', 'stylus']
-          port: 35729
-      styl: '<%= esteWatch.stylus %>'
-      stylus: (filepath) ->
-        return if /_[^\/]*\.styl(?:us)?$/.test filepath
+      styl: (filepath) ->
+        return if /_[^\/]*\.styl$/.test filepath
         conf = grunt.config('stylus.compile.files')[0]
         conf.src = filepath
         grunt.config 'stylus.compile.files', [conf]
         'stylus'
+      options:
+        dirs: ['coffee/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
+        livereload:
+          enabled: true
+          extensions: ['coffee', 'jade', 'js', 'less', 'styl']
+          port: 35729
 
   grunt.loadNpmTasks 'grunt-bower-task'
   grunt.loadNpmTasks 'grunt-contrib-clean'
