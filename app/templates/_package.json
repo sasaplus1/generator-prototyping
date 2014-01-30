@@ -10,6 +10,7 @@
     "grunt-contrib-jade": "~0.9",
     "grunt-contrib-less": "~0.9",
     "grunt-contrib-stylus": "~0.12",
-    "grunt-este-watch": "~0.1"
+    "grunt-este-watch": "~0.1",
+    "grunt-string-replace": "~0.2"
   }
 }

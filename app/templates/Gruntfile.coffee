@@ -112,9 +112,14 @@ module.exports = (grunt) ->
         grunt.config 'copy.coffee.files', [conf]
         # compile copied file
         conf = grunt.config('coffee.compile.files')[0]
-        conf.src = filepath.replace 'coffee/', 'public/coffee/'
+        conf.src = filepath
         grunt.config 'coffee.compile.files', [conf]
-        ['copy:coffee', 'coffee']
+        # replace sourceMap path
+        conf = grunt.config('string-replace.dist.files')[0]
+        conf.src = filepath.replace /coffee\/(.*)\.coffee$/, 'public/js/$1.js'
+        grunt.config 'string-replace.dist.files', [conf]
+        grunt.log.writeln conf.src
+        ['copy:coffee', 'coffee', 'string-replace']
       jade: (filepath) ->
         return if /_[^\/]*\.jade$/.test filepath
         conf = grunt.config('jade.compile.files')[0]
@@ -151,6 +156,18 @@ module.exports = (grunt) ->
           extensions: ['coffee', 'jade', 'js', 'less', 'styl']
           port: 35729
 
+    'string-replace':
+      dist:
+        files: [
+          dest: 'public/js/'
+          src: 'public/js/**/*.js'
+        ]
+        options:
+          replacements: [
+            pattern: /\/\/# sourceMappingURL=.*\//
+            replacement: '//# sourceMappingURL=./'
+          ]
+
   grunt.loadNpmTasks 'grunt-bower-task'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -160,10 +177,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-este-watch'
+  grunt.loadNpmTasks 'grunt-string-replace'
 
-  grunt.registerTask 'compile', ['clean:main', 'copy', 'jade', 'stylus', 'less', 'coffee']
+  grunt.registerTask 'compile', ['clean:main', 'copy', 'jade', 'stylus', 'less', 'coffee', 'string-replace']
   grunt.registerTask 'develop', ['connect', 'esteWatch']
   grunt.registerTask 'install', ['bower']
-  grunt.registerTask 'rebuild', ['clean:all', 'bower', 'copy', 'jade', 'stylus', 'less', 'coffee']
+  grunt.registerTask 'rebuild', ['clean:all', 'bower', 'copy', 'jade', 'stylus', 'less', 'coffee', 'string-replace']
 
   return
