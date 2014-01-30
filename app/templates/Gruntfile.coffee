@@ -23,8 +23,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.js'
           rename: (dest, matchSrcPath, options) ->
-          src: 'public/coffee/**/*.coffee'
             path.join dest, matchSrcPath.replace 'coffee/', ''
+          src: 'coffee/**/*.coffee'
         ]
       options:
         bare: true
@@ -57,8 +57,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.html'
           rename: (dest, matchSrcPath, options) ->
-          src: 'jade/!(_)*.jade'
             path.join dest, matchSrcPath.replace 'jade/', ''
+          src: 'jade/**/!(_)*.jade'
         ]
       options:
         pretty: true
@@ -81,8 +81,8 @@ module.exports = (grunt) ->
           expand: true
           ext: '.css'
           rename: (dest, matchSrcPath, options) ->
-          src: 'stylus/!(_)*.{styl,stylus}'
             path.join dest, matchSrcPath.replace 'stylus/', ''
+          src: 'stylus/**/!(_)*.styl'
         ]
       options:
         compress: false
