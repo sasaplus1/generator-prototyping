@@ -33,8 +33,7 @@ describe('prototyping generator', function() {
       helpers.assertFiles([
         'package.json',
         'bower.json',
-        'Gruntfile.coffee',
-        'jade/index.jade'
+        'Gruntfile.coffee'
       ]);
       done();
     });
