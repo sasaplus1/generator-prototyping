@@ -27,7 +27,7 @@ $ grunt compile
 ```
 
 1. remove files and directories in `public/`, without `public/lib/`
-1. copy to `public/` from `assets/`
+1. copy to `public/` from `assets/`, `css/` and `js/`
 1. compile files for Jade, Stylue, Less and CoffeeScript
 
 ### develop
@@ -41,6 +41,7 @@ $ grunt develop
 
 watch to files below.
 
+- `css/**/*.css`
 - `jade/**/*.jade`
 - `stylus/**/*.styl`
 - `less/**/*.less`

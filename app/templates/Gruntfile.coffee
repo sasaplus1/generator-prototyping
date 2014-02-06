@@ -60,6 +60,12 @@ module.exports = (grunt) ->
           expand: true
           src: 'coffee/**/*.coffee'
         ]
+      css:
+        files: [
+          dest: 'public/'
+          expand: true
+          src: 'css/**/*.css'
+        ]
       js:
         files: [
           dest: 'public/'
@@ -120,6 +126,11 @@ module.exports = (grunt) ->
         grunt.config 'string-replace.dist.files', [conf]
         grunt.log.writeln conf.src
         ['copy:coffee', 'coffee', 'string-replace']
+      css: (filepath) ->
+        conf = grunt.config('copy.css.files')[0]
+        conf.src = filepath
+        grunt.config 'copy.css.files', [conf]
+        'copy:css'
       jade: (filepath) ->
         return if /_[^\/]*\.jade$/.test filepath
         conf = grunt.config('jade.compile.files')[0]
@@ -150,10 +161,10 @@ module.exports = (grunt) ->
         grunt.config 'copy.assets.files', [conf]
         'copy:assets'
       options:
-        dirs: ['assets/**', 'coffee/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
+        dirs: ['assets/**', 'coffee/**', 'css/**', 'jade/**', 'js/**', 'less/**', 'stylus/**']
         livereload:
           enabled: true
-          extensions: ['coffee', 'jade', 'js', 'less', 'styl']
+          extensions: ['coffee', 'css', 'jade', 'js', 'less', 'styl']
           port: 35729
 
     'string-replace':

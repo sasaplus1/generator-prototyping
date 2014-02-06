@@ -1,3 +1,7 @@
+# 0.5.1 / 2014-02-06
+
+  - appended CSS support
+
 # 0.5.0 / 2014-01-30
 
   - added assets/
